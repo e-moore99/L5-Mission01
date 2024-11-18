@@ -3,26 +3,24 @@ import "./App.css";
 
 function App() {
   // this receives the data from the response
-  const [carData, setCarData] = useState();
+  // const [carData, setCarData] = useState();
   // this displays the image on the page
   const [image, setImage] = useState();
-//using this third useState to append to the form data, to use in the post request
+  //using this third useState to append to the form data, to use in the post request
   const [imageFile, setImageFile] = useState(null);
   // this is used to store the result text
   const [result, setResult] = useState();
-  
+
   const handleImgSubmit = (event) => {
-    const file = event.target.files[0]
-    if (file){
-    setImage(URL.createObjectURL(file));
-    setImageFile(file);
-    // setImage(event.target.value);
-  } else {
-    console.log("no file uploaded")
-  }
+    const file = event.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      setImageFile(file);
+      // setImage(event.target.value);
+    } else {
+      console.log("no file uploaded");
+    }
   };
-
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,45 +40,62 @@ function App() {
           body: formData,
         }
       );
-      const resDescr = await response.json();
-      if (resDescr){
-        setCarData(resDescr)
-        console.log(resDescr)
-      }
+      const resData = await response.json();
+      // if (resDescr) {
+      //   setCarData(resDescr);
+      //   console.log(resDescr);
+      // }
 
-      if (carData.predictions && carData.predictions.length > 0) {
+      //here, I am immediately taking the response data from the api and based on the response setting the result message
+      if (resData && resData.predictions.length > 0) {
         // Find the prediction with the highest probability
-        const bestPrediction = carData.predictions.reduce((max, prediction) => 
+        const bestPrediction = resData.predictions.reduce((max, prediction) =>
           prediction.probability > max.probability ? prediction : max
         );
 
         // Output the highest probability and associated label
-        console.log(`Highest probability: ${bestPrediction.probability} for label: ${bestPrediction.tagName}`);
-        
-let results;
-switch (bestPrediction.tagName) {
-  case "Motorbike": //if (tagName === "Motorbike")
-  results = `We are ${(bestPrediction.probability*100).toFixed(1)}% sure this is your ${bestPrediction.tagName}. The annual insurance cost will be $400` 
-    break;
-  case "Sedan": 
-  results = `We are ${(bestPrediction.probability*100).toFixed(1)}% sure this is your ${bestPrediction.tagName}. The annual insurance cost will be $500`
-    break;
-  case "SUV": 
-  results = `We are ${(bestPrediction.probability*100).toFixed(1)}% sure this is your ${bestPrediction.tagName}. The annual insurance cost will be $600`
-    break;
-  case "Van": //if (fruit === "pear")
-  results = `We are ${(bestPrediction.probability*100).toFixed(1)}% sure this is your ${bestPrediction.tagName}. The annual insurance cost will be $700`
-    break;
-  default:
-    console.log("Vehicle not found :(");
-}
+        console.log(
+          `Highest probability: ${bestPrediction.probability} for label: ${bestPrediction.tagName}`
+        );
 
-setResult(results)
+        let results;
+        switch (bestPrediction.tagName) {
+          case "Motorbike": //if (tagName === "Motorbike")
+            results = `We are ${(bestPrediction.probability * 100).toFixed(
+              1
+            )}% sure this is your ${
+              bestPrediction.tagName
+            }. The annual insurance cost will be $400`;
+            break;
+          case "Sedan":
+            results = `We are ${(bestPrediction.probability * 100).toFixed(
+              1
+            )}% sure this is your ${
+              bestPrediction.tagName
+            }. The annual insurance cost will be $500`;
+            break;
+          case "SUV":
+            results = `We are ${(bestPrediction.probability * 100).toFixed(
+              1
+            )}% sure this is your ${
+              bestPrediction.tagName
+            }. The annual insurance cost will be $600`;
+            break;
+          case "Van": //if (fruit === "pear")
+            results = `We are ${(bestPrediction.probability * 100).toFixed(
+              1
+            )}% sure this is your ${
+              bestPrediction.tagName
+            }. The annual insurance cost will be $700`;
+            break;
+          default:
+            console.log("Vehicle not found :(");
+        }
 
+        setResult(results);
       } else {
-        console.log('No predictions found.');
+        console.log("No predictions found.");
       }
-
     } catch (err) {
       console.log(err);
     }
@@ -88,8 +103,6 @@ setResult(results)
 
   // let carType = result.tagName;
   // console.log(result)
-
-
 
   return (
     <>
@@ -112,8 +125,8 @@ setResult(results)
         </form>
       </div>
       <div className="imgBox" id="imgBox">
-       {image && <img src={image} alt="Your car" />}
-        {carData && <p>{result}</p>}
+        {image && <img src={image} alt="Your car" />}
+        <p>{result}</p>
       </div>
     </>
   );
