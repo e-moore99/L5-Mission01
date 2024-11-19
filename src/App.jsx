@@ -106,13 +106,16 @@ function App() {
 
   return (
     <>
+    <header id="header">
+
       <h1>Turners Cars Insurance</h1>
+    </header>
+      <div id="bodyBox">
       <p>
         Here at Turners, we believe in offering you great value. <br />
         To get a quick quote for insurance coverage for your vehicle, upload a
         picture of it below and we'll handle the rest!
       </p>
-      <div>
         <form>
           <input
             type="file"
@@ -121,12 +124,12 @@ function App() {
             accept="/image*" //must ensure the file being uploaded is an img
             onChange={handleImgSubmit}
           />
-          <input type="submit" onClick={handleSubmit} />
+          <input type="submit" onClick={handleSubmit} className="button"/>
         </form>
-      </div>
       <div className="imgBox" id="imgBox">
         {image && <img src={image} alt="Your car" />}
         <p>{result}</p>
+      </div>
       </div>
     </>
   );
