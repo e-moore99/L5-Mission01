@@ -115,7 +115,7 @@ function App() {
         Here at Turners, we believe in offering you great value. <br />
         To get a quick quote for insurance coverage for your vehicle, upload a
         picture of it below and we'll handle the rest!
-      </p>
+      </p><br /><br />
         <form>
           <input
             type="file"
