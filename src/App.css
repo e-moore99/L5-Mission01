@@ -12,6 +12,8 @@
   color: white;
   padding-left: 2%;
   height: 15vh;
+  display: flex;
+  align-items: center;
 }
 
 #bodyBox{
@@ -34,5 +36,5 @@
 .imgBox{
   display: flex;
   flex-direction: column;
-  
+
 }
