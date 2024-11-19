@@ -83,7 +83,7 @@ function App() {
             break;
           case "Van": //if (fruit === "pear")
             results = `We are ${(bestPrediction.probability * 100).toFixed(
-              1
+              2
             )}% sure this is your ${
               bestPrediction.tagName
             }. The annual insurance cost will be $700`;
@@ -108,14 +108,14 @@ function App() {
     <>
     <header id="header">
 
-      <h1>Turners Cars Insurance</h1>
+      <h1>Turners Car Insurance</h1>
     </header>
       <div id="bodyBox">
       <p>
         Here at Turners, we believe in offering you great value. <br />
         To get a quick quote for insurance coverage for your vehicle, upload a
         picture of it below and we'll handle the rest!
-      </p><br /><br />
+      </p><br />
         <form>
           <input
             type="file"
@@ -127,7 +127,7 @@ function App() {
           <input type="submit" onClick={handleSubmit} className="button"/>
         </form>
       <div className="imgBox" id="imgBox">
-        {image && <img src={image} alt="Your car" />}
+        {image && <img src={image} alt="Your car" id="carImg"/>}
         <p>{result}</p>
       </div>
       </div>

@@ -36,5 +36,8 @@
 .imgBox{
   display: flex;
   flex-direction: column;
+}
 
+#carImg{
+  max-width: 400px;
 }
